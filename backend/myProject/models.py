@@ -9,3 +9,11 @@ class User(models.Model):
 
     def _str_(self):
         return self.name
+    
+class Projects(models.Model):
+    title = models.CharField(max_length=15)
+    description = models.TextField()
+    verified = models.BooleanField(default=False)
+
+    def _str_(self):
+        return self.title
