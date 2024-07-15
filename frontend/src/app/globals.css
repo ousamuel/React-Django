@@ -35,23 +35,33 @@ body {
 h1 {
   font-size: 40px;
 }
-h2{
+h2 {
   font-size: 30px;
 }
-h3{
+h3 {
   font-size: 20px;
 }
 
-.projects-container{
+.projects-container {
   display: flex;
   flex-wrap: wrap;
   padding-left: 5em;
   padding-right: 5em;
   justify-content: space-evenly;
-
 }
-.project-box{
-  min-width: 150px;
+.project-box {
+  min-width: 220px;
+  max-width: 300px;
   border: 1px solid;
   margin: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-images {
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+  aspect-ratio: 4/3;
 }
