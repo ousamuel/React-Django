@@ -15,15 +15,17 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
+/* E3E3CA */
 body {
+  min-height: 100vh;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  background-color: #e3e3ca;
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 @layer utilities {
@@ -64,4 +66,22 @@ h3 {
   min-width: 200px;
   max-width: 300px;
   aspect-ratio: 4/3;
+}
+
+.form-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-box input{
+  max-width: 80vw;
+  border: 1px solid;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+
+}
+
+.form-box span{
+  color: red
 }

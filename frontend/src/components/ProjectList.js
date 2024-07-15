@@ -16,9 +16,7 @@ export default class ProjectList extends Component {
     });
   }
   handleDelete = (item) => {
-    axios
-      .delete(`/api/todos/${item.id}/`)
-      .then((res) => this.refreshList());
+    axios.delete(`/api/todos/${item.id}/`).then((res) => this.refreshList());
   };
   render() {
     return (
@@ -28,9 +26,9 @@ export default class ProjectList extends Component {
             <Image
               alt="image1"
               className="project-images"
-              src={project.image?project.image:`/imgs/background2.jpg`}
-              />
-              <h3>{project.title}</h3>
+              src={project.image ? project.image : `/imgs/background2.jpg`}
+            />
+            <h3>{project.title}</h3>
           </div>
         ))}
       </div>

@@ -1,0 +1,16 @@
+
+installing backend pip install django-cleanup
+- to remove pictures after deleting projects
+added INSTALLED_APPS = (
+    ...,
+    'django_cleanup.apps.CleanupConfig',
+)in settings.publicly
+
+
+pip install python-dotenv both backend
+pip install groq 
+
+https://console.groq.com/docs/quickstart
+follow instructions for installation and checking
+
+npm install react-hook-form  

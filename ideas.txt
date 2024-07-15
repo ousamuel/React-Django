@@ -2,3 +2,6 @@ App ideas:
 Portfolio Website?
 Frontend: Display portfolio projects, add new projects, and update existing projects.
 Backend: API endpoints to manage projects and user information.
+
+FREE ai api 
+https://console.groq.com/docs/quickstart
