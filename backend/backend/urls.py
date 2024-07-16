@@ -30,7 +30,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),   
     path('', include(router.urls)),
+    path('chat-completion/', views.chat_completion_view, name='chat-completion'),
+
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    from django.urls import path, include
+    
+from rest_framework.routers import DefaultRouter

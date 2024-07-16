@@ -14,3 +14,6 @@ https://console.groq.com/docs/quickstart
 follow instructions for installation and checking
 
 npm install react-hook-form  
+
+pip install python-magic
+for checkign file type

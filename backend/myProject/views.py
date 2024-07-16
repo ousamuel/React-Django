@@ -1,48 +1,16 @@
 from django.shortcuts import render
+from django.core.exceptions import ValidationError
 from rest_framework import viewsets, status
 from .serializers import UserSerializer, ProjectSerializer
 from .models import User, Project
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 import os
 from groq import Groq
-client = Groq(
-    api_key=os.environ.get("API_KEY"),
-)
 
-# Create your views here.
+client = Groq(api_key=os.environ.get("API_KEY"))
 
-chat_completion = client.chat.completions.create(
-    messages=[
-        {
-            "role": "system",
-            "content": "you are a helpful assistant."
-        },
-        {
-            "role": "user",
-            "content": "return a list of filters",
-        }
-    ],
-    model="llama3-8b-8192",
-)
-print(chat_completion.choices[0].message.content)
-# def ai_view(request):
-#     if request.method == 'POST':
-#         input_data = request.POST.get('input')
-#         api_key = os.getenv('API_KEY')
-
-#         # Call the third-party API with the API key
-#         response = requests.post(
-#             'https://third-party-api.com/endpoint',
-#             headers={'Authorization': f'Bearer {api_key}'},
-#             json={'input': input_data}
-#         )
-
-#         data = response.json()
-#         return JsonResponse(data, status=response.status_code)
-
-#     return JsonResponse({'error': 'Invalid request method'}, status=400)
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -59,8 +27,23 @@ class ProjectView(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
-    
     @action(detail=False, methods=['delete'])
     def delete_everything(self, request):
         Project.objects.all().delete()
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def chat_completion_view(request):
+    input_data = request.data.get('input', 'return a list of filters')
+    try:
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "you are a helpful assistant."},
+                {"role": "user", "content": input_data},
+            ],
+            model="llama3-8b-8192",
+        )
+        response_data = chat_completion.choices[0].message.content
+        return Response({"message": response_data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

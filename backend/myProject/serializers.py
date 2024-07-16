@@ -15,6 +15,11 @@ class ProjectSerializer(serializers.ModelSerializer):
     # for any specified field in the serializer, which is used in views.py
     # Serializer-level validation: DRF will call "validate" method on the serializer, if it is defined
     # you can add multiple validation checkers altogether here
+    def validate_title(self, value):
+        if not value:
+            raise serializers.ValidationError("This field is required.")
+        return value
+    
     def validate_link(self, value):
         if not value:
             raise serializers.ValidationError("This field is required.")
