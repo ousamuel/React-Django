@@ -23,12 +23,19 @@ jobs:
 
     - name: Copy files to EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r . ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/your-repo/backend
+        scp -o StrictHostKeyChecking=no -r . ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/React-Django/backend
       shell: bash
 
     - name: Install dependencies and run migrations
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
-        cd /home/${{ secrets.EC2_USER }}/your-repo/backend
-        source venv/bin/activate || python3 -m venv venv && source venv/bin/activate
-        pip
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /home/${{ secrets.EC2_USER }}/React-Django/backend
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        python manage.py migrate
+        python manage.py collectstatic --noinput
+        sudo systemctl restart gunicorn
+        EOF
+      shell: bash
