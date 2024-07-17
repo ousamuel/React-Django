@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <main className="text-center ">
       {/* <nav>top</nav> */}
-      <h1>Dev Depot</h1>
+      <h1>Dev Depot2</h1>
       {/* <div id="submission">Sign in to add your own work</div> */}
       <form className="form-box" onSubmit={handleSubmit(onSubmit)}>
         {/* register your input into the hook by invoking the "register" function */}

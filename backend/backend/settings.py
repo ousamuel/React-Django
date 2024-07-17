@@ -38,6 +38,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://react-django.s3-website.us-east-2.amazonaws.com/",
+    "http://your-frontend-domain.com",
+]
+
 
 # Application definition
 
