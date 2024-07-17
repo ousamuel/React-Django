@@ -1,4 +1,4 @@
-name: Deploy Backend to EC2
+name: Deploy react-django/backend to EC2
 
 on:
   push:
@@ -23,16 +23,16 @@ jobs:
 
     - name: Create directory on EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "mkdir -p /home/${{ secrets.EC2_USER }}/backend"
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "mkdir -p /home/${{ secrets.EC2_USER }}/react-django/backend"
 
     - name: Copy files to EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r * ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/backend
+        scp -o StrictHostKeyChecking=no -r * ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/react-django/backend
 
     - name: Install dependencies
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
-        cd /home/${{ secrets.EC2_USER }}/backend
+        cd /home/${{ secrets.EC2_USER }}/react-django/backend
         python3 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
@@ -41,7 +41,7 @@ jobs:
     - name: Migrate database and collect static files
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
-        cd /home/${{ secrets.EC2_USER }}/backend
+        cd /home/${{ secrets.EC2_USER }}/react-django/backend
         source venv/bin/activate
         python manage.py migrate
         python manage.py collectstatic --noinput
