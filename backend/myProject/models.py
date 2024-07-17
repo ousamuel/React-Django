@@ -22,7 +22,8 @@ def validate_file_type(value):
         raise ValidationError('Invalid file type. Only PNG, JPG, and JPEG files are allowed.', code=405)
         
 class Project(models.Model):
-    title = models.CharField(max_length=15)
+    title = models.CharField(max_length=15, unique = True, blank = False, null = False)
+    creator = models.CharField(max_length=15, blank = False, null = False)
     description = models.TextField(blank=True, null=True)
     link = models.URLField(unique = True, blank = False, null = False)
     image = models.ImageField(validators=[validate_file_type], upload_to = 'images', blank = True, null = True)

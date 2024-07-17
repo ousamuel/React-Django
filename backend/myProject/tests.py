@@ -12,7 +12,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 class ProjectImageValidation(TestCase):
     def test_unique_link(self):
         # Create an initial object to test uniqueness constraint
-        Project.objects.create(title="project_name", link="https://react-hook-form.com/get-started", description ="")
+        Project.objects.create(title="project_name", creator='user1', link="https://react-hook-form.com/get-started", description ="")
         with self.assertRaises(ValidationError) as cm:
             Project.objects.create(title="duplicate_link", link="https://react-hook-form.com/get-started", description ="")
         self.assertEqual(cm.exception.message_dict['link'][0], 'Project with this Link already exists.')
@@ -21,14 +21,14 @@ class ProjectImageValidation(TestCase):
         # Test that creating an object with an invalid file type raises a ValidationError
         text_file = SimpleUploadedFile(name='test_image.txt', content=b'This is a text file.', content_type='text/plain')
         with self.assertRaises(ValidationError) as cm:
-            project = Project(title="another_name", image=text_file, link="https://react-hook-form.com/get-started#Quickstart", description ="")
+            project = Project(title="another_name", creator='user1', image=text_file, link="https://react-hook-form.com/get-started#Quickstart", description ="")
             project.full_clean()  # Manually call full_clean to trigger validation
         self.assertEqual(cm.exception.message_dict['image'][0], 'Invalid file type. Only PNG, JPG, and JPEG files are allowed.')
         
         # Test with a valid JPG file
         jpg_file = SimpleUploadedFile(name='test_image.jpg', content=b'\xff\xd8\xff\xe0\x00\x10JFIF', content_type='image/jpg')
         try:
-            project_jpg = Project(title="jpg_name", image=jpg_file, link="https://react-hook-form.com/get-started#ReactWebVideoTutorial", description ="")
+            project_jpg = Project(title="jpg_name", creator='user1', image=jpg_file, link="https://react-hook-form.com/get-started#ReactWebVideoTutorial", description ="")
             project_jpg.full_clean()  # Manually call full_clean to trigger validation
         except ValidationError:
             self.fail("Valid JPEG file raised ValidationError")
@@ -36,7 +36,7 @@ class ProjectImageValidation(TestCase):
         # Test with a valid JPEG file
         jpeg_file = SimpleUploadedFile(name='test_image.jpeg', content=b'\xff\xd8\xff\xe0\x00\x10JFIF', content_type='image/jpeg')
         try:
-            project_jpeg = Project(title="jpeg_name", image=jpeg_file, link="https://react-hook-form.com/get-started#IntegratingwithUIlibraries", description ="")
+            project_jpeg = Project(title="jpeg_name", creator='user1', image=jpeg_file, link="https://react-hook-form.com/get-started#IntegratingwithUIlibraries", description ="")
             project_jpeg.full_clean()
         except ValidationError:
             self.fail("Valid JPEG file raised ValidationError")
