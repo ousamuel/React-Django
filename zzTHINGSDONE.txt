@@ -17,3 +17,8 @@ npm install react-hook-form
 
 pip install python-magic
 for checkign file type
+
+in shell 
+pip install psycopg
+pip install psycopg2-binary
+pip freeze>requirements.txt <- update requirements.txt with all packages
