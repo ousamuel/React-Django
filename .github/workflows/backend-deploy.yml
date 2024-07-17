@@ -24,7 +24,7 @@ jobs:
     - name: Copy files to EC2
       run: |
         cd backend
-        scp -vvv -o StrictHostKeyChecking=no -r . ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/React-Django/backend
+        scp -i ~/.ssh/key.pem -r . ec2-user@${{secrets.EC2_HOST}}:/home/ec2-user/React-Django/backend
 
       shell: bash
 
