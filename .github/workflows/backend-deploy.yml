@@ -23,9 +23,7 @@ jobs:
 
     - name: Copy files to EC2
       run: |
-        cd backend
-        scp -i ~/.ssh/key.pem -r . ec2-user@${{secrets.EC2_HOST}}:/home/ec2-user/React-Django/backend
-
+        scp -i ${{EC2_SSH_KEY}} . ec2-user@ip-172-31-31-33.us-east-2.compute.internal:/home/ec2-user/React-Django/backend
       shell: bash
 
     - name: Install dependencies and run migrations
