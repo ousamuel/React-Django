@@ -9,7 +9,7 @@ from rest_framework.decorators import action, api_view
 import os
 from groq import Groq
 
-client = Groq(api_key=os.environ.get("API_KEY"))
+# client = Groq(api_key=os.environ.get("API_KEY"))
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -32,18 +32,18 @@ class ProjectView(viewsets.ModelViewSet):
         Project.objects.all().delete()
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['POST'])
-def chat_completion_view(request):
-    input_data = request.data.get('input', 'return a list of filters')
-    try:
-        chat_completion = client.chat.completions.create(
-            messages=[
-                {"role": "system", "content": "you are a helpful assistant."},
-                {"role": "user", "content": input_data},
-            ],
-            model="llama3-8b-8192",
-        )
-        response_data = chat_completion.choices[0].message.content
-        return Response({"message": response_data}, status=status.HTTP_200_OK)
-    except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['POST'])
+# def chat_completion_view(request):
+#     input_data = request.data.get('input', 'return a list of filters')
+#     try:
+#         chat_completion = client.chat.completions.create(
+#             messages=[
+#                 {"role": "system", "content": "you are a helpful assistant."},
+#                 {"role": "user", "content": input_data},
+#             ],
+#             model="llama3-8b-8192",
+#         )
+#         response_data = chat_completion.choices[0].message.content
+#         return Response({"message": response_data}, status=status.HTTP_200_OK)
+#     except Exception as e:
+#         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
