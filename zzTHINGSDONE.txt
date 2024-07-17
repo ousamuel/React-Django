@@ -30,7 +30,20 @@ ssh -i .github_actions_key ec2-user@13.58.75.114
 2. check gunicorn
 sudo systemctl status gunicorn
 
+command to check SQL in linx
+psql -h react-django-db.cfuk2sy6kztc.us-east-2.rds.amazonaws.com -U superuser -d reactdjango_db
+
 
 
 pip install python-decouple
 from decouple import config <- added to settings.py
+
+
+to makae migrations in ec2 
+get into linux, 
+
+source venv/bin/activate 
+once ur in backend 
+to get into venv 
+
+then migrate

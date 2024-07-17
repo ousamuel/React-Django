@@ -44,3 +44,4 @@ jobs:
         sudo systemctl restart gunicorn
         EOF
       shell: bash
+

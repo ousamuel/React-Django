@@ -17,7 +17,6 @@ from decouple import config
 
 load_dotenv()
 
-API_KEY = os.getenv('GROQ_API_KEY')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-eysjc457xc9%+-1s^0a2j(ee2j5_#^hxkb&m8%=t@*41g2bed3'
+SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
