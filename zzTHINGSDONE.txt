@@ -22,3 +22,15 @@ in shell
 pip install psycopg
 pip install psycopg2-binary
 pip freeze>requirements.txt <- update requirements.txt with all packages
+
+
+COMMAND TO CHECK IF EC2 IS UP:
+1. Get into AMZN Linux
+ssh -i .github_actions_key ec2-user@13.58.75.114
+2. check gunicorn
+sudo systemctl status gunicorn
+
+
+
+pip install python-decouple
+from decouple import config <- added to settings.py

@@ -30,7 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),   
     path('', include(router.urls)),
-    path('chat-completion/', views.chat_completion_view, name='chat-completion'),
 
 ]
 
