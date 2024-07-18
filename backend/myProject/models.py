@@ -26,8 +26,10 @@ class Project(models.Model):
     creator = models.CharField(max_length=15, blank = False, null = False)
     description = models.TextField(blank=True, null=True)
     link = models.URLField(unique = True, blank = False, null = False)
-    image = models.ImageField(validators=[validate_file_type], upload_to = 'images', blank = True, null = True)
-    
+    # for dev
+    # image = models.ImageField(validators=[validate_file_type], upload_to = 'images', blank = True, null = True)
+    image = models.ImageField(validators=[validate_file_type], upload_to='projects/', blank=True, null=True)
+
     def save(self, *args, **kwargs):
         self.full_clean()  # This will call the validators
         super().save(*args, **kwargs)
