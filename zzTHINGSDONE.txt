@@ -51,3 +51,10 @@ then migrate
 
 check for all databases
 psql -h react-django-db.cfuk2sy6kztc.us-east-2.rds.amazonaws.com -U react-django-db
+
+test:
+curl https://ec2-13-58-75-114.us-east-2.compute.amazonaws.com/api/projects
+
+sudo nano /etc/nginx/sites-available/backend
+sudo systemctl restart nginx
+sudo systemctl restart gunicorn

@@ -26,6 +26,7 @@ jobs:
     - name: Build frontend
       run: |
         cd frontend
+        export NEXT_PUBLIC_DB = http://13.58.75.114:8000
         npm run build 
 
     - name: Configure AWS credentials
