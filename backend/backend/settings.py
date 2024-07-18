@@ -58,7 +58,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Media files
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET}.s3.amazonaws.com/'
+MEDIA_URL = f'https://{AWS_S3_BUCKET}.s3.amazonaws.com/'
 
 # Application definition
 INSTALLED_APPS = [
