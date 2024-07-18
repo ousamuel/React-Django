@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'myProject',
     'django_cleanup.apps.CleanupConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
