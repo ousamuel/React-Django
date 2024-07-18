@@ -56,7 +56,6 @@ AWS_QUERYSTRING_AUTH = False
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Media files
 MEDIA_URL = '/media/'
