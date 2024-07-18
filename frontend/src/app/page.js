@@ -12,7 +12,18 @@ export default function Home() {
   const [refreshProjects, setRefreshProjects] = useState(false);
   const [dupLink, setDupLink] = useState(false);
   const [charCount, setCharCount] = useState(0);
+useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/projects/`);
+        setProjects(response.data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
 
+    fetchProjects();
+  }, []);
   const {
     register,
     handleSubmit,

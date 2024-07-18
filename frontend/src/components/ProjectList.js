@@ -1,5 +1,5 @@
 "use client";
-import React, { Component } from "react";
+import React, { Component , useEffect} from "react";
 import axios from "axios";
 import { Image } from "@nextui-org/react";
 
@@ -13,7 +13,9 @@ export default class ProjectList extends Component {
   componentDidMount() {
     this.fetchProjects();
   }
+  
   fetchProjects = () => {
+    console.log(DB_HOST)
     axios.get(`${DB_HOST}/projects/`).then((res) => {
       const projects = res.data;
       console.log(res.data);
