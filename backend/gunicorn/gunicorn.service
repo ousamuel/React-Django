@@ -4,10 +4,10 @@ Requires=gunicorn.socket
 After=network.target
 
 [Service]
-User=ubuntu
+User=ec2-user
 Group=www-data
-WorkingDirectory=/home/ubuntu/django-aws-ec2-nginx-gunicorn
-ExecStart=/home/ubuntu/django-aws-ec2-nginx-gunicorn/venv/bin/gunicorn \
+WorkingDirectory=/home/ec2-user/django-aws-ec2-nginx-gunicorn
+ExecStart=/home/ec2-user/django-aws-ec2-nginx-gunicorn/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/run/gunicorn.sock \
