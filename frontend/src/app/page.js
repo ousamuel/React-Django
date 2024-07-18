@@ -5,24 +5,13 @@ import ProjectList from "@/components/ProjectList";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 export default function Home() {
-  let API = process.env.NEXT_PUBLIC_DB;
+  let DB_HOST = process.env.NEXT_PUBLIC_DB;
+  // console.log(DB_HOST);
   const [loading, setLoading] = useState(true);
   const [newPost, setNewPost] = useState(null);
   const [refreshProjects, setRefreshProjects] = useState(false);
   const [dupLink, setDupLink] = useState(false);
   const [charCount, setCharCount] = useState(0);
-useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/projects/`);
-        setProjects(response.data);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
-    };
-
-    fetchProjects();
-  }, []);
   const {
     register,
     handleSubmit,
@@ -41,7 +30,7 @@ useEffect(() => {
     }
 
     axios
-      .post(`${API}/projects/`, formData, {
+      .post(`${DB_HOST}/projects/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           // handles potential file(image) uploads instead of just regular application/json

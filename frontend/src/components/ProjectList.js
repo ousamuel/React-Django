@@ -3,7 +3,7 @@ import React, { Component , useEffect} from "react";
 import axios from "axios";
 import { Image } from "@nextui-org/react";
 
-let API = process.env.NEXT_PUBLIC_DB;
+let DB_HOST = process.env.NEXT_PUBLIC_DB;
 
 export default class ProjectList extends Component {
   state = {
@@ -15,7 +15,8 @@ export default class ProjectList extends Component {
   }
   
   fetchProjects = () => {
-    axios.get(`${API}/projects/`).then((res) => {
+    console.log(DB_HOST)
+    axios.get(`${DB_HOST}/projects/`).then((res) => {
       const projects = res.data;
       console.log(res.data);
       this.setState({ projects });
@@ -29,7 +30,7 @@ export default class ProjectList extends Component {
 
   handleDelete = (id) => {
     axios
-      .delete(`${API}/projects/${id}/`)
+      .delete(`${DB_HOST}/projects/${id}/`)
       .then((res) => this.fetchProjects());
   };
   render() {
