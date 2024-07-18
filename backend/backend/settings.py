@@ -36,7 +36,7 @@ SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['13.58.75.114', 'localhost', 'ec2-13-58-75-114.us-east-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['ec2-13-58-75-114.us-east-2.compute.amazonaws.com', '13.58.75.114', 'localhost']
 
 CORS_ALLOWED_ORIGINS = [
     "http://react-django.s3-website.us-east-2.amazonaws.com",
@@ -45,7 +45,11 @@ CORS_ALLOWED_ORIGINS = [
     'http://13.58.75.114:8000'
 ]
 
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000',
+     "http://react-django.s3-website.us-east-2.amazonaws.com",
 
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -160,8 +164,3 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000',
-    #  "http://react-django.s3-website.us-east-2.amazonaws.com/",
-
-]
