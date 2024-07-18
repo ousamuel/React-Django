@@ -53,7 +53,7 @@ check for all databases
 psql -h react-django-db.cfuk2sy6kztc.us-east-2.rds.amazonaws.com -U react-django-db
 
 test:
-curl https://ec2-13-58-75-114.us-east-2.compute.amazonaws.com/api/projects
+curl http://ec2-13-58-75-114.us-east-2.compute.amazonaws.com/api/projects
 ec2-13-58-75-114.us-east-2.compute.amazonaws.com
 sudo nano /etc/nginx/sites-available/backend
 sudo systemctl restart nginx
@@ -64,9 +64,12 @@ sudo systemctl daemon-reload
 sudo systemctl start gunicorn
 
 sudo systemctl restart gunicorn
+sudo systemctl status gunicorn
+
 sudo journalctl -u gunicorn
 
 
+sudo systemctl status gunicorn
 
 
 pip install boto3 django-storages
