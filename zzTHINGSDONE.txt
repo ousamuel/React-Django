@@ -26,8 +26,9 @@ pip freeze>requirements.txt <- update requirements.txt with all packages
 
 COMMAND TO CHECK IF EC2 IS UP:
 1. Get into AMZN Linux
-ssh -i .github_actions_key ec2-user@13.58.75.114
-2. check gunicorn
+ssh -i .github_actions_key ec2-user@ec2-18-188-241-109.us-east-2.compute.amazonaws.com
+
+ check gunicorn
 sudo systemctl status gunicorn
 
 command to check SQL in linx
