@@ -54,7 +54,50 @@ psql -h react-django-db.cfuk2sy6kztc.us-east-2.rds.amazonaws.com -U react-django
 
 test:
 curl https://ec2-13-58-75-114.us-east-2.compute.amazonaws.com/api/projects
-
+ec2-13-58-75-114.us-east-2.compute.amazonaws.com
 sudo nano /etc/nginx/sites-available/backend
 sudo systemctl restart nginx
+
+sudo nano /etc/systemd/system/gunicorn.service
+
+sudo systemctl daemon-reload
+sudo systemctl start gunicorn
+
 sudo systemctl restart gunicorn
+
+
+
+
+pip install boto3 django-storages
+FOR IMAGES IN POSTGRES + S3
+added this to settings
+# settings.py
+
+import os
+from decouple import config
+
+# S3 settings
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default='us-east-1')
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Media files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+
+# Add CORS allowed origins
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://react-django.s3-website.us-east-2.amazonaws.com',
+    f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com',
+]
+
