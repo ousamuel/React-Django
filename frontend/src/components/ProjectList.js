@@ -15,7 +15,6 @@ export default class ProjectList extends Component {
   }
   
   fetchProjects = () => {
-    console.log(DB_HOST)
     axios.get(`${DB_HOST}/projects/`).then((res) => {
       const projects = res.data;
       console.log(res.data);

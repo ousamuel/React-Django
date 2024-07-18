@@ -36,11 +36,13 @@ SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['13.58.75.114', 'localhost', 'react-django.s3-website.us-east-2.amazonaws.com']
+ALLOWED_HOSTS = ['13.58.75.114', 'localhost', 'ec2-13-58-75-114.us-east-2.compute.amazonaws.com']
 
 CORS_ALLOWED_ORIGINS = [
-    "http://react-django.s3-website.us-east-2.amazonaws.com",
+    "http://react-django.s3-website.us-east-2.amazonaws.com/",
     "http://localhost:3000",
+    'http://ec2-13-58-75-114.us-east-2.compute.amazonaws.com',
+    'http://13.58.75.114:8000'
 ]
 
 
