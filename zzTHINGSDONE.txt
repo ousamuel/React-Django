@@ -47,3 +47,7 @@ once ur in backend
 to get into venv 
 
 then migrate
+
+
+check for all databases
+psql -h react-django-db.cfuk2sy6kztc.us-east-2.rds.amazonaws.com -U react-django-db
