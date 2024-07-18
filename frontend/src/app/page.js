@@ -5,8 +5,7 @@ import ProjectList from "@/components/ProjectList";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 export default function Home() {
-  let DB_HOST = process.env.NEXT_PUBLIC_DB;
-  // console.log(DB_HOST);
+  let API = process.env.NEXT_PUBLIC_DB;
   const [loading, setLoading] = useState(true);
   const [newPost, setNewPost] = useState(null);
   const [refreshProjects, setRefreshProjects] = useState(false);
@@ -42,7 +41,7 @@ useEffect(() => {
     }
 
     axios
-      .post(`${DB_HOST}/projects/`, formData, {
+      .post(`${API}/projects/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           // handles potential file(image) uploads instead of just regular application/json
