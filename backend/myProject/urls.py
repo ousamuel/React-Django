@@ -8,4 +8,5 @@ router.register(r'projects', ProjectView)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('projects/delete-everything/', ProjectView.as_view({'delete': 'delete_everything'})),
 ]
