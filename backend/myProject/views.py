@@ -8,6 +8,8 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view
 import os
+from django.db.models import Q
+
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -36,7 +38,11 @@ class ProjectView(viewsets.ModelViewSet):
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
     
 @api_view(['GET'])
-def project_search(self, request):
-    return JsonResponse({"a": 1}, safe=False)
-
-  
+def project_search(request):
+    query = request.GET.get('search', None)
+    if query:
+        projects = Project.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        serializer = ProjectSerializer(projects, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse({"message": "Please provide a search query"}, status=400)
