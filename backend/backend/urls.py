@@ -30,7 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('myProject.urls')),   
     # path('', include(router.urls)),
-
 ]
 
 if settings.DEBUG:
