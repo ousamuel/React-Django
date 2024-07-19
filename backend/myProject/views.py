@@ -35,4 +35,9 @@ class ProjectView(viewsets.ModelViewSet):
     def delete_everything(self, request):
         Project.objects.all().delete()
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request, pk):
+        project = self.get_object(pk)
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
