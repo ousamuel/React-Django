@@ -9,6 +9,6 @@ router.register(r'users', UserView)
 router.register(r'projects', ProjectView)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('projects/list/', ProjectView.as_view({'get': 'project_list'}), name='project_list'),
+    path('users/', UserView.as_view({'get': 'list', 'post': 'create'})),
+    path('projects/', ProjectView.as_view({'get': 'list', 'post': 'create'})),
 ]
