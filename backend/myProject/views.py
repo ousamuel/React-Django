@@ -14,6 +14,11 @@ from django.db.models import Q
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    
+    @action(detail=False, methods=['delete'], url_path='delete-everything')
+    def delete_everything(self, request):
+        User.objects.all().delete()
+        return Response({"message": "All users deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 class ProjectView(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
