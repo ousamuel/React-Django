@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "http://react-django.s3-website.us-east-2.amazonaws.com",
     "http://localhost:3000",
-    'http://ec2-52-15-203-120.us-east-2.compute.amazonaws.com/api/projects/' ,
+    'http://ec2-52-15-203-120.us-east-2.compute.amazonaws.com/api/projects' ,
     'http://13.58.75.114:8000',
 ]
 
