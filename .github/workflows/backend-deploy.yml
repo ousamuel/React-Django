@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy Django Backend to EC2
 
 on:
   push:
@@ -13,16 +13,32 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Add SSH key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-    - name: Deploy to EC2
+    - name: Set up SSH
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-        cd /var/www/React-Django
+        echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
+        chmod 600 key.pem
+        eval "$(ssh-agent -s)"
+        ssh-add key.pem
+      shell: bash
+
+    - name: Copy files to EC2
+      run: |
+        scp -vvv -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r backend/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/React-Django/backend
+      shell: bash
+
+    - name: Install dependencies and run migrations
+      run: |
+        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /var/www/React-Django/backend
         git pull origin main
+     
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        python manage.py migrate
+        python manage.py collectstatic --noinput
         docker-compose down
         docker-compose up -d --build
         EOF
+      shell: bash
