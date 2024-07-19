@@ -30,7 +30,6 @@ jobs:
       env:
         NEXT_PUBLIC_DB : ${{ secrets.NEXT_PUBLIC_DB}}
 
-
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
