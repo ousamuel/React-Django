@@ -138,3 +138,14 @@ connect to db as user
 
 
 ssh -i ".authDJ.pem" ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com
+
+
+
+
+
+
+
+somethings happening when i git pull i think
+its causing installations to disappear
+have to run pip install -r 
+python3 -m venv venv
