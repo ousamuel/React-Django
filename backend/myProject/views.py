@@ -26,7 +26,7 @@ class ProjectView(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         
-     @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'])
     def project_list(self, request):
         projects = list(Project.objects.values())
         return JsonResponse(projects, safe=False)
@@ -35,9 +35,4 @@ class ProjectView(viewsets.ModelViewSet):
     def delete_everything(self, request):
         Project.objects.all().delete()
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
-
-    def delete(self, request, pk):
-        project = self.get_object(pk)
-        project.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
     
