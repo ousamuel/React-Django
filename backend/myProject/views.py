@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from rest_framework import viewsets, status
 from .serializers import UserSerializer, ProjectSerializer
@@ -25,8 +26,14 @@ class ProjectView(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
+    @action(detail=False, methods=['get'])
+    def project_list(self, request):
+        projects = list(Project.objects.values())
+        return JsonResponse(projects, safe=False)
+    
     @action(detail=False, methods=['delete'])
     def delete_everything(self, request):
         Project.objects.all().delete()
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
 
+    
