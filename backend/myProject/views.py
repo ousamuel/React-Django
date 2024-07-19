@@ -34,3 +34,12 @@ class ProjectView(viewsets.ModelViewSet):
     def delete_everything(self, request):
         Project.objects.all().delete()
         return Response({"message": "All projects deleted"}, status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['GET'])
+def project_search(request):
+    query = request.GET.get('q', None)
+    if query:
+        projects = Project.objects.filter(name__icontains=query) | Project.objects.filter(description__icontains=query)
+        serializer = ProjectSerializer(projects, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    return JsonResponse({"message": "Please provide a search query"}, status=400)
