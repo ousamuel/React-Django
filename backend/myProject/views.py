@@ -39,10 +39,4 @@ class ProjectView(viewsets.ModelViewSet):
 def project_search(self, request):
     return JsonResponse({"a": 1}, safe=False)
 
-    # query = request.GET.get('q', None)
-    query = self.request.query_params.get('search')
-    projects = Project.objects.filter(title=query) 
-    # | Project.objects.all().filter(description__icontains=query)
-    return {"a":1}
-    serializer = ProjectSerializer(projects, many=True)
-    return JsonResponse(serializer.data, safe=False)
+  
