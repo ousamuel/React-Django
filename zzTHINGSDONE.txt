@@ -54,23 +54,25 @@ check for all databases
 psql -h react-django-db.cfuk2sy6kztc.us-east-2.rds.amazonaws.com -U react-django-db
 
 test:
-curl http://ec2-13-58-75-114.us-east-2.compute.amazonaws.com/api/projects
+curl http://ec2-18-188-241-109.us-east-2.compute.amazonaws.com/api/projects
 ec2-13-58-75-114.us-east-2.compute.amazonaws.com
+
 sudo nano /etc/nginx/sites-available/backend
 sudo systemctl restart nginx
+sudo systemctl status nginx
+
+sudo nano /etc/nginx/nginx.conf
 
 sudo nano /etc/systemd/system/gunicorn.service
-
 sudo systemctl daemon-reload
 sudo systemctl start gunicorn
-
 sudo systemctl restart gunicorn
-sudo systemctl status gunicorn
-
-sudo journalctl -u gunicorn
-
 
 sudo systemctl status gunicorn
+
+sudo journalctl -u gunicorn -n 50
+sudo tail -f /var/log/nginx/error.log
+
 
 
 pip install boto3 django-storages
@@ -106,3 +108,4 @@ CORS_ORIGIN_WHITELIST = [
     f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com',
 ]
 
+https://stackoverflow.com/questions/66594111/why-does-nginx-think-my-root-directory-is-usr-share-nginx-and-not-var-www-html
