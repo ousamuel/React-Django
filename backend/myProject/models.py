@@ -6,7 +6,7 @@ import magic
 class User(models.Model):
     name = models.CharField(max_length=15)
     linkedin = models.URLField(unique=True, blank=True, null=True)
-    descripton = models.TextField(max_length= 50, blank=True,null=True)
+    description = models.TextField(max_length= 50, blank=True,null=True)
 
     def __str__(self):
         return self.name

@@ -1,5 +1,13 @@
 "use client";
-import { Image } from "@nextui-org/react";
+import {
+  Image,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
 import { set, useForm } from "react-hook-form";
 import ProjectList from "@/components/ProjectList";
 import React, { useEffect, useState } from "react";
@@ -62,6 +70,7 @@ export default function Home() {
           placeholder="Title"
           {...register("title", { required: true })}
         />
+        {errors.title && <span>Title is required</span>}
         <input
           className={errors.creator ? "border-red-500" : ""}
           maxLength={15}
@@ -81,7 +90,7 @@ export default function Home() {
           <span>This link has already been used</span>
         )}
         {/*  */}
-        <div className="flex flex-wrap max-w-[350px] justify-center">
+        {/* <div className="flex flex-wrap max-w-[350px] justify-center">
           Upload an image (optional):
           <input
             type="file"
@@ -90,7 +99,7 @@ export default function Home() {
             // specifying file type
             {...register("image")}
           />
-        </div>
+        </div> */}
         {/*  */}
         <textarea
           className="w-3/4 max-w-[350px] py-1 px-2 border"
@@ -113,6 +122,19 @@ export default function Home() {
         <input type="submit" />
       </form>
       {/* {loading? :} */}
+      <Dropdown>
+        <DropdownTrigger>
+          <Button variant="bordered">Open Menu</Button>
+        </DropdownTrigger>
+        <DropdownMenu aria-label="Static Actions">
+          <DropdownItem key="new">New file</DropdownItem>
+          <DropdownItem key="copy">Copy link</DropdownItem>
+          <DropdownItem key="edit">Edit file</DropdownItem>
+          <DropdownItem key="delete" className="text-danger" color="danger">
+            Delete file
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
       <ProjectList refreshProjects={refreshProjects} />
     </main>
   );
