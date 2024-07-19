@@ -21,10 +21,10 @@ jobs:
         ssh-add key.pem
       shell: bash
 
-    - name: Copy files to EC2
-      run: |
-        scp -vvv -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r backend/* ubuntu@${{ secrets.EC2_HOST }}
-      shell: bash
+    # - name: Copy files to EC2
+    #   run: |
+    #     scp -vvv -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r backend/* ubuntu@${{ secrets.EC2_HOST }}
+    #   shell: bash
 
     - name: Install dependencies and run migrations
       run: |
