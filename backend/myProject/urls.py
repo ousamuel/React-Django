@@ -10,5 +10,5 @@ router.register(r'projects', ProjectView)
 
 urlpatterns = [
     path('users/', UserView.as_view({'get': 'list', 'post': 'create'})),
-    path('projects/', ProjectView.as_view({'get': 'list', 'post': 'create'})),
+    path('projects/', ProjectView.as_view({'get': 'list', 'post': 'create', 'delete':'destroy'})),
 ]
