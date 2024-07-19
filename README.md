@@ -4,7 +4,7 @@ Dev Showcase is a web platform that allows developers to showcase their projects
 <!-- In this application, users can effortlessly manage shared expenses with friends, family, or colleagues. They can create groups for different occasions or groups of people, add expenses, split bills accurately among group members, and keep track of who owes what. The app provides clear insights into spending patterns and simplifies settling debts, ensuring financial transparency among users. -->
 [Click here to go to the website](http://react-django.s3-website.us-east-2.amazonaws.com/)
 
-[Link to demo]()
+[Link to demo](https://www.loom.com/share/ffd56b19213a403b873db55183e04421?sid=af39d766-e292-4a07-ae7f-7e4d3160b270)
 
 ## Technologies
 
