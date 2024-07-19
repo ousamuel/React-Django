@@ -21,52 +21,36 @@ jobs:
         ssh-add key.pem
       shell: bash
 
-    # - name: Copy files to EC2
-    #   run: |
-    #     scp -vvv -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r backend/* ubuntu@${{ secrets.EC2_HOST }}
-    #   shell: bash
+    - name: Debug - Check Remote Directory Before Pull
+      run: |
+        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /var/www/React-Django/backend
+        echo "Before git pull:"
+        ls -la
+        EOF
+      shell: bash
 
     - name: Install dependencies and run migrations
       run: |
         ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
         cd /var/www/React-Django/backend
         git pull origin main
-     
+        echo "After git pull:"
+        ls -la
         python3 -m venv venv
         source venv/bin/activate
         pip install --upgrade pip
         pip install -r requirements.txt
         python manage.py migrate
         python manage.py collectstatic --noinput
-      
         EOF
       shell: bash
 
-# name: Deploy to EC2
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-
-#     - name: Add SSH key
-#       uses: webfactory/ssh-agent@v0.5.3
-#       with:
-#         ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-#     - name: Deploy to EC2
-#       run: |
-#         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-#         cd /var/www/React-Django
-#         git pull origin main
-#         docker-compose down
-#         docker-compose up -d --build
-#         EOF
+    - name: Debug - Check Remote Directory After Pull
+      run: |
+        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /var/www/React-Django/backend
+        echo "Final state of directory:"
+        ls -la
+        EOF
+      shell: bash
