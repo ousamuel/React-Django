@@ -16,7 +16,7 @@ jobs:
     - name: Add SSH key
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.EC2_KEY }}
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
     - name: Install Docker and Docker Compose on EC2
       run: |
