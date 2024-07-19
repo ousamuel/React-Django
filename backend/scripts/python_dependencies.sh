@@ -10,18 +10,18 @@ if [ -z "$PROJECT_MAIN_DIR_NAME" ]; then
 fi
 
 # Change ownership to ubuntu user
-sudo chown -R ubuntu:ubuntu "/home/ubuntu/$PROJECT_MAIN_DIR_NAME"
+sudo chown -R ec2-user:ec2-user "/var/www/$PROJECT_MAIN_DIR_NAME"
 
 # Create virtual environment
 echo "Creating virtual environment..."
-virtualenv "/home/ec2-user/$PROJECT_MAIN_DIR_NAME/venv"
+virtualenv "/var/www/$PROJECT_MAIN_DIR_NAME/venv"
 
 # Activate virtual environment
 echo "Activating virtual environment..."
-source "/home/ec2-user/$PROJECT_MAIN_DIR_NAME/venv/bin/activate"
+source "/var/www/$PROJECT_MAIN_DIR_NAME/venv/bin/activate"
 
 # Install dependencies
 echo "Installing Python dependencies..."
-pip install -r "/home/ec2-user/$PROJECT_MAIN_DIR_NAME/requirements.txt"
+pip install -r "/var/www/$PROJECT_MAIN_DIR_NAME/requirements.txt"
 
 echo "Dependencies installed successfully."

@@ -13,11 +13,11 @@ fi
 sudo chown -R ec2-user:ec2-user "/home/ec2-user/$PROJECT_MAIN_DIR_NAME"
 
 # Change directory to the project main directory
-cd "/home/ec2-user/$PROJECT_MAIN_DIR_NAME"
+cd "/var/www/$PROJECT_MAIN_DIR_NAME"
 
 # Activate virtual environment
 echo "Activating virtual environment..."
-source "/home/ec2-user/$PROJECT_MAIN_DIR_NAME/venv/bin/activate"
+source "/var/www/$PROJECT_MAIN_DIR_NAME/venv/bin/activate"
 
 # Run collectstatic command
 echo "Running collectstatic command..."
