@@ -1,4 +1,4 @@
-name: Deploy Django Backend to EC2
+name: Deploy to EC2
 
 on:
   push:
@@ -13,44 +13,34 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up SSH
-      run: |
-        echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
-        chmod 600 key.pem
-        eval "$(ssh-agent -s)"
-        ssh-add key.pem
-      shell: bash
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.EC2_KEY }}
 
-    - name: Debug - Check Remote Directory Before Pull
+    - name: Install Docker and Docker Compose on EC2
       run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-        cd /var/www/React-Django/backend
-        echo "Before git pull:"
-        ls -la
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+        sudo apt-get update
+        sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        sudo apt-get update
+        sudo apt-get install -y docker-ce
+        sudo systemctl status docker
+        sudo usermod -aG docker ${USER}
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
         EOF
       shell: bash
 
-    - name: Install dependencies and run migrations
+    - name: Deploy to EC2
       run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-        cd /var/www/React-Django/backend
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /var/www/React-Django
         git pull origin main
-        echo "After git pull:"
-        ls -la
-        python3 -m venv venv
-        source venv/bin/activate
-        pip install --upgrade pip
-        pip install -r requirements.txt
-        python manage.py migrate
-        python manage.py collectstatic --noinput
-        EOF
-      shell: bash
-
-    - name: Debug - Check Remote Directory After Pull
-      run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-        cd /var/www/React-Django/backend
-        echo "Final state of directory:"
-        ls -la
+        docker-compose down
+        docker-compose up -d --build
         EOF
       shell: bash
