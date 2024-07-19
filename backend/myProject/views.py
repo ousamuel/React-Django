@@ -39,9 +39,8 @@ class ProjectView(viewsets.ModelViewSet):
 def project_search(self, request):
     # query = request.GET.get('q', None)
     query = self.request.query_params.get('search')
-
     if query:
-        projects = Project.objects.filter(name__icontains=query) | Project.objects.filter(description__icontains=query)
+        projects = Project.objects.all().filter(name__icontains=query) | Project.objects.all().filter(description__icontains=query)
         serializer = ProjectSerializer(projects, many=True)
         return JsonResponse(serializer.data, safe=False)
     return JsonResponse({"message": "Please provide a search query"}, status=400)
