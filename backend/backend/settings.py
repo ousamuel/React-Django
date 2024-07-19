@@ -28,13 +28,15 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'ec2-18-188-241-109.us-east-2.compute.amazonaws.com',
     '13.58.75.114',
-]
+    'ec2-52-15-203-120.us-east-2.compute.amazonaws.com',
+    
+    ]
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://react-django.s3-website.us-east-2.amazonaws.com",
     "http://localhost:3000",
-    'http://ec2-18-188-241-109.us-east-2.compute.amazonaws.com',
+    'http://ec2-52-15-203-120.us-east-2.compute.amazonaws.com/api/projects/' ,
     'http://13.58.75.114:8000',
 ]
 
