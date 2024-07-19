@@ -149,3 +149,9 @@ somethings happening when i git pull i think
 its causing installations to disappear
 have to run pip install -r 
 python3 -m venv venv
+
+For deploying the Django backend, I used an AWS EC2 instance with Ubuntu. After setting up the instance, I installed necessary packages like Python, Git, and Nginx. I cloned my project repository, set up a virtual environment, installed dependencies, and configured Gunicorn as the application server. Nginx was used as a reverse proxy to handle incoming requests. Static files were collected and served by Nginx
+<!-- , and the entire setup was secured with an SSL certificate using Certbot. -->
+
+For the Next.js frontend, I built the project locally and deployed it to an AWS S3 bucket configured for static website hosting. The build files were synced to the S3 bucket using the AWS CLI, ensuring efficient and scalable static file delivery. The S3 bucket was configured with a policy to allow public read access, making the site accessible to users. This setup leverages the scalability and reliability of AWS services to ensure a seamless and performant user experience.
+
