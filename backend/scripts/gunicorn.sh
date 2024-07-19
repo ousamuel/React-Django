@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Replace {YOUR_PROJECT_MAIN_DIR_NAME} with your actual project directory name
-PROJECT_MAIN_DIR_NAME="React-Django/backend/backend"
+PROJECT_MAIN_DIR_NAME="React-Django/backend"
 
 # Copy gunicorn socket and service files
 sudo cp "/var/www/$PROJECT_MAIN_DIR_NAME/gunicorn/gunicorn.socket" "/etc/systemd/system/gunicorn.socket"

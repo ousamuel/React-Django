@@ -10,7 +10,7 @@ if [ -z "$PROJECT_MAIN_DIR_NAME" ]; then
 fi
 
 # Change ownership to ubuntu user
-sudo chown -R ec2-user:ec2-user "/home/ec2-user/$PROJECT_MAIN_DIR_NAME"
+sudo chown -R ec2-user:ec2-user "/var/www/$PROJECT_MAIN_DIR_NAME"
 
 # Change directory to the project main directory
 cd "/var/www/$PROJECT_MAIN_DIR_NAME"
