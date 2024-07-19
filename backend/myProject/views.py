@@ -41,5 +41,6 @@ def project_search(self, request):
     query = self.request.query_params.get('search')
     projects = Project.objects.filter(title=query) 
     # | Project.objects.all().filter(description__icontains=query)
+    return query
     serializer = ProjectSerializer(projects, many=True)
     return JsonResponse(serializer.data, safe=False)
