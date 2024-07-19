@@ -1,5 +1,5 @@
 "use client";
-import React, { Component , useEffect} from "react";
+import React, { Component, useEffect } from "react";
 import axios from "axios";
 import { Image } from "@nextui-org/react";
 
@@ -13,9 +13,9 @@ export default class ProjectList extends Component {
   componentDidMount() {
     this.fetchProjects();
   }
-  
+
   fetchProjects = () => {
-    console.log(DB_HOST)
+    console.log(DB_HOST);
     axios.get(`${DB_HOST}/projects/`).then((res) => {
       const projects = res.data;
       console.log(res.data);
@@ -39,11 +39,17 @@ export default class ProjectList extends Component {
         {this.state.projects.map((project) => (
           <div className="project-box" key={project.id}>
             <div className="ml-5 float-right">
-              <Image
-                alt={project.title + project.id}
-                className="project-images"
-                src={project.image ? project.image : `/imgs/github.jpg`}
-              />
+              <a
+                className=" text-blue-500 underline hover:text-blue-300"
+                href={project.link}
+                target="_blank"
+              >
+                <Image
+                  alt={project.title + project.id}
+                  className="project-images"
+                  src={project.image ? project.image : `/imgs/github.jpg`}
+                />
+              </a>
               <button
                 onClick={() => {
                   this.handleDelete(project.id);
@@ -53,7 +59,7 @@ export default class ProjectList extends Component {
                 Delete
               </button>
             </div>
-            <h3 className='flex-wrap'>
+            <h3 className="flex-wrap">
               <a
                 className=" text-blue-500 underline hover:text-blue-300"
                 href={project.link}
@@ -61,7 +67,10 @@ export default class ProjectList extends Component {
               >
                 {project.title}
               </a>{" "}
-              <span className='text-gray-500 text-sm'> by {project.creator}</span>
+              <span className="text-gray-500 text-sm">
+                {" "}
+                by {project.creator}
+              </span>
             </h3>
             <p>{project.description}</p>
           </div>
