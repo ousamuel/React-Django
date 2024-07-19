@@ -1,4 +1,4 @@
-name: Deploy Django Backend to EC2
+name: Deploy to EC2
 
 on:
   push:
@@ -13,38 +13,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up SSH
-      run: |
-        echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
-        chmod 600 key.pem
-        eval "$(ssh-agent -s)"
-        ssh-add key.pem
-      shell: bash
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-    - name: Copy files to EC2
+    - name: Deploy to EC2
       run: |
-        scp -vvv -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r backend/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/React-Django/backend
-      shell: bash
-
-    - name: Install dependencies and run migrations
-      run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-        cd /var/www/React-Django/backend
-        echo "DB_NAME=${{ secrets.DB_NAME }}" > .env
-        echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-        echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-        echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY}}" >> .env
-        echo "AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET}}" >> .env
-        echo "AWS_S3_REGION_NAME=${{ secrets.AWS_S3_REGION_NAME }}" >> .env
-        python3 -m venv venv
-        source venv/bin/activate
-        pip install --upgrade pip
-        pip install -r requirements.txt
-        python manage.py migrate
-        python manage.py collectstatic --noinput
-
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /path/to/your/project
+        git pull origin main
+        docker-compose down
+        docker-compose up -d --build
         EOF
-      shell: bash

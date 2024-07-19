@@ -58,6 +58,7 @@ curl http://ec2-18-188-241-109.us-east-2.compute.amazonaws.com/api/projects
 ec2-13-58-75-114.us-east-2.compute.amazonaws.com
 
 sudo nano /etc/nginx/sites-available/backend
+sudo nano /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
 sudo systemctl status nginx
 
@@ -94,4 +95,46 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass http://unix:/home/run/gunicorn.sock;
     }
+}p
+
+
+
+
+
+
+
+ostgres=# CREATE DATABASE djangoapi_db;
+CREATE USER djangoapi_user WITH PASSWORD '0980989';
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djangoapi_db',
+        'USER': 'djangoapi_user',
+        'PASSWORD': '0980989',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
+DB_NAME=djangoapi_db
+DB_USER=djangoapi_user
+DB_PASSWORD=0980989
+DB_HOST=localhost
+DB_PORT=5432
+
+
+sudo -i -u postgres
+psql
+\q
+exit
+
+switch to postgres user, enter shell, exit shell, exit postgres user 
+
+postgres=# ALTER SCHEMA public OWNER TO djangoapi_user;
+
+psql -h localhost -U djangoapi_user -d djangoapi_db
+connect to db as user
+
+
+ssh -i ".authDJ.pem" ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com
