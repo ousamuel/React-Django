@@ -16,7 +16,7 @@ export default class ProjectList extends Component {
   
   fetchProjects = () => {
     console.log(DB_HOST)
-    axios.get(`${DB_HOST}/projects/`).then((res) => {
+    axios.get(`${`http://ec2-18-188-241-109.us-east-2.compute.amazonaws.com/api`}/projects/`).then((res) => {
       const projects = res.data;
       console.log(res.data);
       this.setState({ projects });
