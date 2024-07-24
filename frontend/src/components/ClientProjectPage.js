@@ -1,16 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 
 const DB_HOST = process.env.NEXT_PUBLIC_DB;
 
-const ProjectPage = () => {
+export default function Project({ projectId }) {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [badURL, setBadURL] = useState(false);
-  const { projectId } = useParams();
   const router = useRouter();
 
   useEffect(() => {
@@ -51,5 +50,3 @@ const ProjectPage = () => {
     </div>
   );
 };
-
-export default ProjectPage;
