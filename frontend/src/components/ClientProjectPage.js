@@ -4,8 +4,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 
-const DB_HOST = process.env.NEXT_PUBLIC_DB;
-
+const DB_HOST =
+  process.env.NODE_ENV == "development"
+    ? process.env.NEXT_PUBLIC_DB_127
+    : process.env.NEXT_PUBLIC_DB;
 export default function Project({ projectId }) {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ export default function Project({ projectId }) {
         console.error("Error fetching project:", error);
         setBadURL(true);
         setTimeout(() => {
-          router.push('/projects'); // Redirect to projects list or another appropriate page
+          router.push("/projects"); // Redirect to projects list or another appropriate page
         }, 3000); // Redirect after 3 seconds
       }
     };
@@ -49,4 +51,4 @@ export default function Project({ projectId }) {
       {/* Add more project details here */}
     </div>
   );
-};
+}

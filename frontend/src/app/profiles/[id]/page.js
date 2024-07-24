@@ -1,7 +1,10 @@
 import ClientProfilePage from "@/components/ClientProfilePage";
 import axios from "axios";
 export async function generateStaticParams() {
-  const DB_HOST = process.env.NEXT_PUBLIC_DB_127;
+  const DB_HOST =
+    process.env.NODE_ENV == "development"
+      ? process.env.NEXT_PUBLIC_DB_127
+      : process.env.NEXT_PUBLIC_DB;
   try {
     const res = await axios.get(`${DB_HOST}/profiles/`);
     const profiles = res.data;
@@ -9,7 +12,7 @@ export async function generateStaticParams() {
       id: profile.id.toString(), // Ensure the ID is a string
     }));
   } catch (error) {
-    console.error('Error fetching profiles:', error);
+    console.error("Error fetching profiles:", error);
     return [];
   }
 }
