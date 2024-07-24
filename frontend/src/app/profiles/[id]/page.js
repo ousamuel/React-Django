@@ -1,7 +1,7 @@
 import ClientProfilePage from "@/components/ClientProfilePage";
 import axios from "axios";
 export async function generateStaticParams() {
-  const DB_HOST = process.env.NEXT_PUBLIC_DB;
+  const DB_HOST = process.env.NEXT_PUBLIC_DB_127;
   try {
     const res = await axios.get(`${DB_HOST}/profiles/`);
     const profiles = res.data;

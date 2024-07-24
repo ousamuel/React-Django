@@ -4,6 +4,7 @@ import { AuthContext } from "@/app/AuthContext";
 
 export default function NavBar() {
   const { router, profile } = useContext(AuthContext);
+  console.log(profile)
   return (
     <nav className="flex justify-center">
       {profile ? (

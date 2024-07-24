@@ -32,15 +32,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
         # Determine if the secure flag should be set
         secure = settings.ENVIRONMENT == 'PRODUCTION'
-
-        response = HttpResponse({'message': 'Login successful'})
+        response = JsonResponse({'message': 'Login successful', 'access': access, 'refresh': refresh})
         # in dev, set secure = False, production --> True
         response.set_cookie('refresh_token', refresh, httponly=True, secure=secure, samesite='Lax')
         response.set_cookie('access_token', access, httponly=True, secure=secure, samesite='Lax')
         
         return response
 
-        return response
 class MyTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         responseT = super().post(request, *args, **kwargs)

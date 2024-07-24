@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 # DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 DEBUG = True
 
-ENVIRONMENT = os.environ.get('ENVIRONMENT'),
+ENVIRONMENT = os.environ.get('ENVIRONMENT')
 
 
 ALLOWED_HOSTS = [
