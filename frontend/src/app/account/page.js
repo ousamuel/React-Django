@@ -12,7 +12,7 @@ import { set, useForm } from "react-hook-form";
 import { AuthContext } from "../AuthContext";
 import React, { useContext } from "react";
 import axios from "axios";
-export default function Account() {
+const Account = () => {
   const { profile, DB_HOST, router } = useContext(AuthContext);
   const {
     register: register,
@@ -39,7 +39,7 @@ export default function Account() {
 
       if (response.status === 200) {
         console.log("Login successful");
-        router.push('/')
+        router.push("/");
       }
     } catch (error) {
       // console.log(error.response.data);
@@ -70,4 +70,5 @@ export default function Account() {
       </form>
     </div>
   );
-}
+};
+export default Account;
