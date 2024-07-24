@@ -22,8 +22,7 @@ jobs:
         run: |
           cd frontend
           npm install
-      - name: Log environment variable
-        run: echo "NEXT_PUBLIC_DB_127=${{ secrets.NEXT_PUBLIC_DB_127 }}"
+          
       - name: Build frontend
         run: |
           cd frontend
