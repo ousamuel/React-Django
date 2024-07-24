@@ -27,11 +27,11 @@ class MyTokenObtainPairView(TokenObtainPairView):
         access = responseT.data['access']
 
         response = HttpResponse({'message': 'Login successful'})
-        response.set_cookie('refresh_token', refresh, httponly=True, secure=False, samesite='Lax')
-        response.set_cookie('access_token', access, httponly=True, secure=False, samesite='Lax')
+        # response.set_cookie('refresh_token', refresh, httponly=True, secure=False, samesite='Lax')
+        # response.set_cookie('access_token', access, httponly=True, secure=False, samesite='Lax')
         # in dev, set secure = False, production --> True
-        # response.set_cookie('refresh_token', refresh, httponly=True, secure=True, samesite='Lax')
-        # response.set_cookie('access_token', access, httponly=True, secure=True, samesite='Lax')
+        response.set_cookie('refresh_token', refresh, httponly=True, secure=True, samesite='Lax')
+        response.set_cookie('access_token', access, httponly=True, secure=True, samesite='Lax')
         
         return response
 class MyTokenRefreshView(TokenRefreshView):
@@ -41,7 +41,8 @@ class MyTokenRefreshView(TokenRefreshView):
 
         response = JsonResponse({'message': 'Token refreshed successfully'})
         # in dev, set secure = False, production --> True
-        response.set_cookie('access_token', access, httponly=True, secure=False, samesite='Lax')
+        # response.set_cookie('access_token', access, httponly=True, secure=False, samesite='Lax')
+        response.set_cookie('access_token', access, httponly=True, secure=True, samesite='Lax')
         
         return response
     
