@@ -30,6 +30,7 @@ jobs:
           npm run export
         env:
           NEXT_PUBLIC_DB: ${{ secrets.NEXT_PUBLIC_DB }}
+          NEXT_PUBLIC_DB_127: ${{ secrets.NEXT_PUBLIC_DB_127 }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
