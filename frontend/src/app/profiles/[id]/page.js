@@ -1,6 +1,5 @@
 "use client";
 import ClientProfilePage from "@/components/ClientProfilePage";
-import axios from "axios";
 // export async function generateStaticParams() {
 //   const DB_HOST = process.env.NEXT_PUBLIC_DB_127;
 
