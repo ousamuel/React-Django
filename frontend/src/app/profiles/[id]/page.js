@@ -1,4 +1,5 @@
 import ClientProfilePage from "@/components/ClientProfilePage";
+
 export async function generateStaticParams() {
   const DB_HOST = process.env.NEXT_PUBLIC_DB;
   const profiles = await fetch(`${DB_HOST}/profiles/`).then((res) => res.json())
