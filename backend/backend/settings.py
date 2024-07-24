@@ -22,25 +22,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+# DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = True
 
 
 ALLOWED_HOSTS = [
-    'ec2-18-188-241-109.us-east-2.compute.amazonaws.com',
-    '13.58.75.114',
+    # '13.58.75.114',
     'ec2-52-15-203-120.us-east-2.compute.amazonaws.com',
-    
+    'localhost',
+    # '127.0.0.1'
     ]
+SESSION_COOKIE_HTTPONLY = True
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://react-django.s3-website.us-east-2.amazonaws.com",
     "http://localhost:3000",
-    'http://ec2-52-15-203-120.us-east-2.compute.amazonaws.com' ,
-    'http://13.58.75.114:8000',
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",  # Your frontend URL
+]
 CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
 
 
 # AWS S3 settings
@@ -79,13 +82,32 @@ INSTALLED_APPS = [
     'myProject',
     'django_cleanup.apps.CleanupConfig',
     'storages',
-    'whitenoise.runserver_nostatic', 
+    'rest_framework_simplejwt.token_blacklist',
+
 
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+}
+from datetime import timedelta
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_COOKIE': 'access_token',  
+    'AUTH_COOKIE_HTTP_ONLY': True, 
+    'AUTH_COOKIE_SECURE': False,    # Set to True in production
+    'AUTH_COOKIE_SAMESITE': 'Lax', 
+}
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -94,6 +116,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'myProject.middleware.JWTAuthenticationMiddleware',
+
 ]
 
 ROOT_URLCONF = 'backend.urls'

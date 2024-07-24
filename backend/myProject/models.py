@@ -1,16 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 import magic
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
-class User(models.Model):
-    name = models.CharField(max_length=15)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(blank = False, null = False)
+    last_name = models.CharField(blank = True, null = True)
     linkedin = models.URLField(unique=True, blank=True, null=True)
-    description = models.TextField(blank=True,null=True)
+    # description = models.TextField(blank=True,null=True)
 
-    def __str__(self):
-        return self.name
+     
     
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()    
     
     
 def validate_file_type(value):
@@ -22,8 +31,9 @@ def validate_file_type(value):
         raise ValidationError('Invalid file type. Only PNG, JPG, and JPEG files are allowed.', code=405)
         
 class Project(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='projects')
+    creator = models.CharField(max_length = 15)
     title = models.CharField(max_length=15, unique = True, blank = False, null = False)
-    creator = models.CharField(max_length=15, blank = False, null = False)
     description = models.TextField(blank=True, null=True)
     link = models.URLField(unique = True, blank = False, null = False)
     # for dev

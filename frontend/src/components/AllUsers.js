@@ -4,6 +4,7 @@ import axios from "axios";
 import { Image, Avatar } from "@nextui-org/react";
 
 let DB_HOST = process.env.NEXT_PUBLIC_DB;
+// let DB_HOST = ";
 
 export default class AllUsers extends Component {
   state = {
@@ -15,10 +16,10 @@ export default class AllUsers extends Component {
   }
 
   fetchUsers = () => {
-    console.log(DB_HOST);
+    // console.log(DB_HOST);
     axios.get(`${DB_HOST}/users/`).then((res) => {
       const users = res.data;
-      console.log(res.data);
+      // console.log(res.data);
       this.setState({ users });
     });
   };
@@ -37,8 +38,8 @@ export default class AllUsers extends Component {
 
       <div className="flex justify-center py-4">
         {this.state.users.map((user) => (
-          <a className='m-2'href={user.linkedin}>
-            <Avatar name={user.name} />
+          <a key ={user.username} className='m-2'href={user.profile}>
+            <Avatar name={user.username} />
           </a>
         ))}
         </div>

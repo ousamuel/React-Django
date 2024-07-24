@@ -43,11 +43,20 @@ h2 {
 h3 {
   font-size: 20px;
 }
+.main-body {
+  width: 1250px;
+  min-height: 400px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.main-body section {
+  width: 30%;
+  justify-content: center;
+}
 
 .projects-container {
   display: flex;
-  flex-direction: column;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   padding-left: 3em;
   padding-right: 3em;
   justify-content: space-evenly;
@@ -55,6 +64,8 @@ h3 {
 .project-box {
   /* display: flex; */
   width: 100%;
+  /* min-width: 450px;
+  max-width: 500px; */
   height: fit-content;
   border: 1px solid #8d8d73;
   background-color: #e0e0d5;

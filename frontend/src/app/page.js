@@ -8,22 +8,22 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-import { set, useForm } from "react-hook-form";
 import ProjectList from "@/components/ProjectList";
 import AllUsers from "@/components/AllUsers";
-import React, { useEffect, useState } from "react";
+import NavBar from "@/components/Navbar";
 import axios from "axios";
+import { set, useForm } from "react-hook-form";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
 export default function Home() {
   let DB_HOST = process.env.NEXT_PUBLIC_DB;
-
   const [loading, setLoading] = useState(true);
   const [refreshProjects, setRefreshProjects] = useState(false);
   const [refreshUsers, setRefreshUsers] = useState(false);
   const [dupLink, setDupLink] = useState(false);
   const [dupLinkedIn, setDupLinkedIn] = useState(false);
   const [charCount, setCharCount] = useState(0);
-
   // Separate useForm hooks for each form
   const {
     register: registerProject,
@@ -84,15 +84,16 @@ export default function Home() {
         resetUser();
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
         if (error.response.status == 400) {
           setDupLinkedIn(true);
         }
       });
   };
-
   return (
-    <main className="text-center ">
+    <main className="text-center">
+      
+      <NavBar />
       <h1>Dev Showcase</h1>
       <form className="form-box" onSubmit={handleSubmitProject(onPostSubmit)}>
         <input

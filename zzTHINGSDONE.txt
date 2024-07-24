@@ -155,3 +155,5 @@ For deploying the Django backend, I used an AWS EC2 instance with Ubuntu. After 
 
 For the Next.js frontend, I built the project locally and deployed it to an AWS S3 bucket configured for static website hosting. The build files were synced to the S3 bucket using the AWS CLI, ensuring efficient and scalable static file delivery. The S3 bucket was configured with a policy to allow public read access, making the site accessible to users. This setup leverages the scalability and reliability of AWS services to ensure a seamless and performant user experience.
 
+
+pip install djangorestframework-simplejwt

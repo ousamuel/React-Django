@@ -17,3 +17,15 @@
     Include an overview of your tech stack and architecture.
     Explain the deployment process to AWS.
     Provide a live demo or screenshots of the running website and its key features.
+
+
+Deliverables
+1. Profile page
+2. Public projects page 
+2.5. single projects page
+3. User auth and protected endpoints based on JWT token
+4. Likes or favorite system
+5. comments on projects
+6. filtering based on category (engineering, art, etc.)
+7. Rendering posts batch wise, not all at once
+
