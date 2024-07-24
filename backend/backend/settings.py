@@ -25,12 +25,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 # DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 DEBUG = True
 
+ENVIRONMENT = os.environ.get('ENVIRONMENT'),
+
 
 ALLOWED_HOSTS = [
     # '13.58.75.114',
     'ec2-52-15-203-120.us-east-2.compute.amazonaws.com',
     'localhost',
-    # '127.0.0.1'
+    '127.0.0.1'
     ]
 SESSION_COOKIE_HTTPONLY = True
 

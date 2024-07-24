@@ -20,29 +20,35 @@ from .models import Project, Profile
 # is_active, is_staff, is_superuser, last_login, last_name, logentry, 
 # password, user_permissions, username
 
+from django.http import HttpResponse
+from rest_framework_simplejwt.views import TokenObtainPairView
+from django.conf import settings
+
 class MyTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         responseT = super().post(request, *args, **kwargs)
         refresh = responseT.data['refresh']
         access = responseT.data['access']
 
+        # Determine if the secure flag should be set
+        secure = settings.ENVIRONMENT == 'PRODUCTION'
+
         response = HttpResponse({'message': 'Login successful'})
-        # response.set_cookie('refresh_token', refresh, httponly=True, secure=False, samesite='Lax')
-        # response.set_cookie('access_token', access, httponly=True, secure=False, samesite='Lax')
         # in dev, set secure = False, production --> True
-        response.set_cookie('refresh_token', refresh, httponly=True, secure=True, samesite='Lax')
-        response.set_cookie('access_token', access, httponly=True, secure=True, samesite='Lax')
+        response.set_cookie('refresh_token', refresh, httponly=True, secure=secure, samesite='Lax')
+        response.set_cookie('access_token', access, httponly=True, secure=secure, samesite='Lax')
         
+        return response
+
         return response
 class MyTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         responseT = super().post(request, *args, **kwargs)
         access = responseT.data['access']
 
+        secure = settings.ENVIRONMENT == 'production'
         response = JsonResponse({'message': 'Token refreshed successfully'})
-        # in dev, set secure = False, production --> True
-        # response.set_cookie('access_token', access, httponly=True, secure=False, samesite='Lax')
-        response.set_cookie('access_token', access, httponly=True, secure=True, samesite='Lax')
+        response.set_cookie('access_token', access, httponly=True, secure=secure, samesite='Lax')
         
         return response
     
