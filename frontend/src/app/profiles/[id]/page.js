@@ -2,9 +2,10 @@ import ClientProfilePage from "@/components/ClientProfilePage";
 import axios from "axios";
 export async function generateStaticParams() {
   const DB_HOST = process.env.NEXT_PUBLIC_DB_127;
+  return [{ id: "1" }, { id: "2" }]; // Hardcoded for testing
+
   try {
-    // const profiles = await axios.get(`${DB_HOST}/profiles/`);
-    const profiles = await axios.get(`http://ec2-52-15-203-120.us-east-2.compute.amazonaws.com/api/profiles/`);
+    const profiles = await axios.get(`${DB_HOST}/profiles/`);
     return profiles.data.map((profile) => ({
       id: profile.id.toString(), // Ensure the ID is a string
     }));
