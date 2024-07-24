@@ -14,7 +14,7 @@ export default function ClientProfilePage({ profileId }) {
   const { DB_HOST } = useContext(AuthContext);
 
   const fetchProfile = async () => {
-    console.log(profileId);
+    // console.log(profileId);
     try {
       const response = await axios.get(`${DB_HOST}/profiles/${profileId}`);
       setProfileData(response.data);
