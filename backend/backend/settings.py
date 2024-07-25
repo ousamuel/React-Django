@@ -39,10 +39,12 @@ SESSION_COOKIE_HTTPONLY = True
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://react-django.s3-website.us-east-2.amazonaws.com",
+    "https://react-django-five.vercel.app/",
     "http://localhost:3000",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Your frontend URL
+    "https://react-django-five.vercel.app/",  # Your frontend URL
 ]
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
