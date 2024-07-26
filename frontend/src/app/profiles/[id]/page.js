@@ -25,17 +25,17 @@ import axios from "axios";
 import { useRouter, useParams } from "next/navigation";
 import Loader from "@/components/Loader";
 
-const ProfilePage = () => {
+const ProfilePage = ({params}) => {
   const [loading, setLoading] = useState(true);
   const [badURL, setBadURL] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const router = useRouter();
   const { DB_HOST } = useContext(AuthContext);
-  const { id } = useParams();
+  // const { id } = useParams();
   const fetchProfile = async () => {
     // console.log(profileId);
     try {
-      const response = await axios.get(`${DB_HOST}/profiles/${profileId}`);
+      const response = await axios.get(`${DB_HOST}/profiles/${params.id}`);
       setProfileData(response.data);
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     fetchProfile();
-  }, [profileId]);
+  }, [params.id]);
 
   if (badURL) {
     setTimeout(() => {
