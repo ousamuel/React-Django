@@ -17,14 +17,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 
 export default function Home() {
-  let DB_HOST = process.env.NEXT_PUBLIC_DB;
-  console.log(DB_HOST)
   const [loading, setLoading] = useState(true);
   const [refreshProjects, setRefreshProjects] = useState(false);
   const [refreshUsers, setRefreshUsers] = useState(false);
   const [dupLink, setDupLink] = useState(false);
   const [dupLinkedIn, setDupLinkedIn] = useState(false);
   const [charCount, setCharCount] = useState(0);
+  const {DB_HOST} = useContext(AuthContext)
   // Separate useForm hooks for each form
   const {
     register: registerProject,

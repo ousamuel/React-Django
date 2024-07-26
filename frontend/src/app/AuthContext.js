@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  let DB_HOST = process.env.NEXT_PUBLIC_DB;
+  let DB_HOST = process.env.NEXT_DB;
   const fetchProfile = async () => {
     try {
       const response = await axios.get(`${DB_HOST}/profile1/`, {
