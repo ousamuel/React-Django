@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
     'ec2-52-15-203-120.us-east-2.compute.amazonaws.com',
     'localhost',
     '127.0.0.1',
-    "https://dmork8qfckuo9.cloudfront.net",
+    "ddak1odjwgxp3.cloudfront.net",
 
     ]
 SESSION_COOKIE_HTTPONLY = True
@@ -42,13 +42,13 @@ SESSION_COOKIE_HTTPONLY = True
 CORS_ALLOWED_ORIGINS = [
     "http://react-django.s3-website.us-east-2.amazonaws.com",
     "https://react-django-five.vercel.app",
-    "https://dmork8qfckuo9.cloudfront.net",
+    "https://ddak1odjwgxp3.cloudfront.net/api",
     "http://localhost:3000",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Your frontend URL
     "https://react-django-five.vercel.app",  # Your frontend URL
-    "https://dmork8qfckuo9.cloudfront.net",
+    "https://ddak1odjwgxp3.cloudfront.net",
 
 ]
 CORS_ALLOW_ALL_ORIGINS = False

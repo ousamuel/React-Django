@@ -26,7 +26,13 @@ pip freeze>requirements.txt <- update requirements.txt with all packages
 
 COMMAND TO CHECK IF EC2 IS UP:
 1. Get into AMZN Linux
-ssh -i .github_actions_key ec2-user@ec2-18-188-241-109.us-east-2.compute.amazonaws.com
+ssh -i .github_actions_key ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com
+ssh -i authDJ.pem ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com
+
+scp -i .github_actions_key domain.cert.pem ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com:/etc/ssl/certs/
+scp -i .github_actions_key intermediate.cert.pem ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com:/etc/ssl/certs/
+scp -i .github_actions_key private.key.pem ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com:/etc/ssl/private/
+scp -i .github_actions_key public.key.pem ubuntu@ec2-52-15-203-120.us-east-2.compute.amazonaws.com:/etc/ssl/certs/
 
  check gunicorn
 sudo systemctl status gunicorn
