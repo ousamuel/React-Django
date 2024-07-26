@@ -5,3 +5,6 @@
 .github_actions_key.pub
 
 .authDJ.pem
+
+.github/workflows
+.zzTHINGSDONE.txt

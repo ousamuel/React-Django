@@ -1,102 +1,94 @@
 "use client";
-import React, { Component, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Image } from "@nextui-org/react";
+import { AuthContext } from "@/app/AuthContext";
 
-let DB_HOST = process.env.NEXT_PUBLIC_DB;
+const ProjectList = ({ refreshProjects }) => {
+  const [projects, setProjects] = useState([]);
+  const { DB_HOST } = useContext(AuthContext);
 
-export default class ProjectList extends Component {
-  state = {
-    projects: [],
-  };
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-  componentDidMount() {
-    this.fetchProjects();
-  }
+  useEffect(() => {
+    fetchProjects();
+  }, [refreshProjects]);
 
-  fetchProjects = () => {
-    // console.log(DB_HOST);
-    axios.get(`${DB_HOST}/projects/`).then((res) => {
-      const projects = res.data;
-      // console.log(res.data);
-      this.setState({ projects });
-    });
-  };
-  componentDidUpdate(prevProps) {
-    if (prevProps.refreshProjects !== this.props.refreshProjects) {
-      this.fetchProjects();
+  const fetchProjects = async () => {
+    try {
+      const res = await axios.get(`${DB_HOST}/projects/`);
+      setProjects(res.data);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
     }
-  }
-
-  handleDelete = (id) => {
-    axios
-      .delete(`${DB_HOST}/projects/${id}/`)
-      .then((res) => this.fetchProjects());
   };
-  render() {
-    return (
-      <div className="projects-container">
-        {this.state.projects.map((project) => (
-          <div className="project-box" key={project.id}>
-            <div className="ml-5 hidden sm:float-right sm:block ">
-              <a
-                className=" text-blue-500 underline hover:text-blue-300"
-                href={`/projects/${project.id}`}
-                // target="_blank"
-              >
-                <Image
-                  alt={project.title + project.id}
-                  className="project-images"
-                  src={project.image ? project.image : `/imgs/github.jpg`}
-                />
-              </a>
-              <button
-                onClick={() => {
-                  this.handleDelete(project.id);
-                }}
-                className="text-[10px] text-white bg-red-500 w-fit px-2 py-1 rounded-lg mt-2 hover:bg-red-300"
-              >
-                Delete
-              </button>
-            </div>
-            <h3 className="flex-wrap">
-              <a
-                className=" text-blue-500 underline hover:text-blue-300"
-                href={project.link}
-                target="_blank"
-              >
-                {project.title}
-              </a>{" "}
-              <span className="text-gray-500 text-sm">
-                {" "}
-                by {project.creator}
-              </span>
-            </h3>
-            <p>{project.description}</p>
-            <div className="ml-5 sm:hidden">
-              <a
-                className=" text-blue-500 underline hover:text-blue-300"
-                href={`/projects/${project.id}`}
-                // target="_blank"
-              >
-                <Image
-                  alt={project.title + project.id}
-                  className="project-images"
-                  src={project.image ? project.image : `/imgs/github.jpg`}
-                />
-              </a>
-              <button
-                onClick={() => {
-                  this.handleDelete(project.id);
-                }}
-                className="text-[10px] text-white bg-red-500 w-fit px-2 py-1 rounded-lg mt-2 hover:bg-red-300"
-              >
-                Delete
-              </button>
-            </div>
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${DB_HOST}/projects/${id}/`);
+      fetchProjects();
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
+  return (
+    <div className="projects-container">
+      {projects.map((project) => (
+        <div className="project-box" key={project.id}>
+          <div className="ml-5 hidden sm:float-right sm:block ">
+            <a
+              className="text-blue-500 underline hover:text-blue-300"
+              href={`/projects/${project.id}`}
+            >
+              <Image
+                alt={project.title + project.id}
+                className="project-images"
+                src={project.image ? project.image : `/imgs/github.jpg`}
+              />
+            </a>
+            <button
+              onClick={() => handleDelete(project.id)}
+              className="text-[10px] text-white bg-red-500 w-fit px-2 py-1 rounded-lg mt-2 hover:bg-red-300"
+            >
+              Delete
+            </button>
           </div>
-        ))}
-      </div>
-    );
-  }
-}
+          <h3 className="flex-wrap">
+            <a
+              className="text-blue-500 underline hover:text-blue-300"
+              href={project.link}
+              target="_blank"
+            >
+              {project.title}
+            </a>{" "}
+            <span className="text-gray-500 text-sm"> by {project.creator}</span>
+          </h3>
+          <p>{project.description}</p>
+          <div className="ml-5 sm:hidden">
+            <a
+              className="text-blue-500 underline hover:text-blue-300"
+              href={`/projects/${project.id}`}
+            >
+              <Image
+                alt={project.title + project.id}
+                className="project-images"
+                src={project.image ? project.image : `/imgs/github.jpg`}
+              />
+            </a>
+            <button
+              onClick={() => handleDelete(project.id)}
+              className="text-[10px] text-white bg-red-500 w-fit px-2 py-1 rounded-lg mt-2 hover:bg-red-300"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ProjectList;

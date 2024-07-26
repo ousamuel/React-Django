@@ -95,6 +95,7 @@ export default function Home() {
       
       <NavBar />
       <h1>Dev Showcase</h1>
+      <p>'Dont forget to change vercel ENVs to remove public'</p>
       <form className="form-box" onSubmit={handleSubmitProject(onPostSubmit)}>
         <input
           className={errorsProject.title ? "border-red-500" : ""}

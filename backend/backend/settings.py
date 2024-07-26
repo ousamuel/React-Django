@@ -30,7 +30,7 @@ ENVIRONMENT = os.environ.get('ENVIRONMENT')
 
 ALLOWED_HOSTS = [
     # '13.58.75.114',
-    'ec2-52-15-203-120.us-east-2.compute.amazonaws.com',
+    'ec2-52-15-203-120.us-east-2.wcompute.amazonaws.com',
     'localhost',
     '127.0.0.1',
     "ddak1odjwgxp3.cloudfront.net",
