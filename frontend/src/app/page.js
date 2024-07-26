@@ -18,6 +18,7 @@ import { AuthContext } from "./AuthContext";
 
 export default function Home() {
   let DB_HOST = process.env.NEXT_PUBLIC_DB;
+  console.log(DB_HOST)
   const [loading, setLoading] = useState(true);
   const [refreshProjects, setRefreshProjects] = useState(false);
   const [refreshUsers, setRefreshUsers] = useState(false);
