@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   let DB_HOST = process.env.NEXT_PUBLIC_DB;
   const fetchProfile = async () => {
+    console.log(DB_HOST)
     try {
       const response = await axios.get(`${DB_HOST}/profile1/`, {
         withCredentials: true, // This ensures cookies are included in the request
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
       setProfile(response.data);
     } catch (error) {
-      // console.error("Error fetching user profile:", error);
+      console.error("Error fetching user profile:", error);
     } finally {
       setLoading(false);
     }

@@ -40,9 +40,9 @@ SESSION_COOKIE_HTTPONLY = True
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://react-django.s3-website.us-east-2.amazonaws.com",
+    # "http://react-django.s3-website.us-east-2.amazonaws.com",
     "https://react-django-five.vercel.app",
-    "https://ddak1odjwgxp3.cloudfront.net/api",
+    # "https://ddak1odjwgxp3.cloudfront.net",
     "http://localhost:3000",
 ]
 CSRF_TRUSTED_ORIGINS = [
@@ -51,8 +51,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://ddak1odjwgxp3.cloudfront.net",
 
 ]
-CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 
 # AWS S3 settings

@@ -34,8 +34,16 @@ class MyTokenObtainPairView(TokenObtainPairView):
         secure = settings.ENVIRONMENT == 'PRODUCTION'
         response = JsonResponse({'message': 'Login successful', 'access': access, 'refresh': refresh})
         # in dev, set secure = False, production --> True
-        response.set_cookie('refresh_token', refresh, httponly=True, secure=secure, samesite='Lax')
-        response.set_cookie('access_token', access, httponly=True, secure=secure, samesite='Lax')
+        response.set_cookie('refresh_token', 
+                            refresh, 
+                            httponly=True, 
+                            secure=secure, 
+                            samesite='None' if secure else 'Lax')
+        response.set_cookie('access_token', 
+                            access, 
+                            httponly=True, 
+                            secure=secure, 
+                            samesite='None' if secure else 'Lax')
         
         return response
 
